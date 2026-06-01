@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>霓虹斗士 | 二维单机格斗游戏</title>
+    <link rel="stylesheet" href="src/styles.css" />
+  </head>
+  <body>
+    <main class="shell">
+      <section class="hero-panel" aria-labelledby="game-title">
+        <div>
+          <p class="eyebrow">Offline 2D Fighter</p>
+          <h1 id="game-title">霓虹斗士</h1>
+          <p class="subtitle">本地单机 Canvas 格斗小游戏：移动、跳跃、防御、轻拳和重踢，击败会走位和反击的 AI 对手。</p>
+        </div>
+        <div class="hud-card" aria-live="polite">
+          <span>回合</span>
+          <strong id="roundLabel">1</strong>
+        </div>
+      </section>
+
+      <section class="arena-wrap" aria-label="游戏画面">
+        <canvas id="game" width="960" height="540" role="img" aria-label="二维格斗游戏画布"></canvas>
+        <div class="overlay" id="overlay">
+          <h2>准备战斗</h2>
+          <p>按 <kbd>Enter</kbd> 开始 / 重新开始</p>
+        </div>
+      </section>
+
+      <section class="controls" aria-label="操作说明">
+        <article>
+          <h2>玩家操作</h2>
+          <ul>
+            <li><kbd>A</kbd>/<kbd>D</kbd> 左右移动</li>
+            <li><kbd>W</kbd> 跳跃，<kbd>S</kbd> 防御</li>
+            <li><kbd>J</kbd> 轻拳，<kbd>K</kbd> 重踢</li>
+            <li><kbd>Enter</kbd> 开始或重开</li>
+          </ul>
+        </article>
+        <article>
+          <h2>玩法目标</h2>
+          <p>在 75 秒内打空 AI 血量。连招、闪避和格挡会让你更容易赢下这一回合。</p>
+        </article>
+      </section>
+    </main>
+
+    <script src="src/game.js" defer></script>
+  </body>
+</html>
