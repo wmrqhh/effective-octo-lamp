@@ -24,7 +24,22 @@
         <canvas id="game" width="960" height="540" role="img" aria-label="二维格斗游戏画布"></canvas>
         <div class="overlay" id="overlay">
           <h2>准备战斗</h2>
-          <p>按 <kbd>Enter</kbd> 开始 / 重新开始</p>
+          <p>按 <kbd>Enter</kbd> 或点下面按钮开始 / 重新开始</p>
+          <button class="start-button" type="button" data-start>开始战斗</button>
+        </div>
+      </section>
+
+      <section class="touch-controls" aria-label="手机触屏操作">
+        <div class="touch-cluster" aria-label="移动">
+          <button type="button" data-key="a" aria-label="向左移动">←</button>
+          <button type="button" data-key="d" aria-label="向右移动">→</button>
+        </div>
+        <div class="touch-cluster actions" aria-label="动作">
+          <button type="button" data-key="w" aria-label="跳跃">跳</button>
+          <button type="button" data-key="s" aria-label="防御">防</button>
+          <button type="button" data-key="j" aria-label="轻拳">拳</button>
+          <button type="button" data-key="k" aria-label="重踢">踢</button>
+          <button type="button" data-start aria-label="开始或重开">开始</button>
         </div>
       </section>
 
@@ -32,10 +47,9 @@
         <article>
           <h2>玩家操作</h2>
           <ul>
-            <li><kbd>A</kbd>/<kbd>D</kbd> 左右移动</li>
-            <li><kbd>W</kbd> 跳跃，<kbd>S</kbd> 防御</li>
-            <li><kbd>J</kbd> 轻拳，<kbd>K</kbd> 重踢</li>
-            <li><kbd>Enter</kbd> 开始或重开</li>
+            <li>手机：点 <kbd>开始</kbd>，按住屏幕按钮移动或防御，点击 <kbd>拳</kbd>/<kbd>踢</kbd> 攻击</li>
+            <li>键盘：<kbd>A</kbd>/<kbd>D</kbd> 左右移动，<kbd>W</kbd> 跳跃，<kbd>S</kbd> 防御</li>
+            <li>键盘：<kbd>J</kbd> 轻拳，<kbd>K</kbd> 重踢，<kbd>Enter</kbd> 开始或重开</li>
           </ul>
         </article>
         <article>

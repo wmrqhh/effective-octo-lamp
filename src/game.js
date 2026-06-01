@@ -2,6 +2,7 @@ const canvas = document.querySelector("#game");
 const ctx = canvas.getContext("2d");
 const overlay = document.querySelector("#overlay");
 const roundLabel = document.querySelector("#roundLabel");
+const touchButtons = document.querySelectorAll("[data-key]");
 
 const WIDTH = canvas.width;
 const HEIGHT = canvas.height;
@@ -52,6 +53,10 @@ function createFighter(config) {
 const player = createFighter({ name: "玩家", x: 170, color: "#39e6ff", accent: "#d8fbff", facing: 1 });
 const enemy = createFighter({ name: "AI 影刃", x: 730, color: "#ff4fd8", accent: "#ffe3f8", facing: -1 });
 
+function startOrRestart() {
+  if (!game.running) resetRound(game.round + (game.winner ? 1 : 0));
+}
+
 function resetRound(nextRound = game.round) {
   Object.assign(player, createFighter({ name: "玩家", x: 170, color: "#39e6ff", accent: "#d8fbff", facing: 1, wins: player.wins }));
   Object.assign(enemy, createFighter({ name: "AI 影刃", x: 730, color: "#ff4fd8", accent: "#ffe3f8", facing: -1, wins: enemy.wins }));
@@ -62,6 +67,7 @@ function resetRound(nextRound = game.round) {
   game.winner = null;
   game.lastTime = performance.now();
   roundLabel.textContent = String(game.round);
+  overlay.querySelector(".start-button").textContent = "开始战斗";
   overlay.classList.add("hidden");
 }
 
@@ -192,7 +198,8 @@ function endRound(message, winner) {
   game.winner = winner;
   if (winner) winner.wins += 1;
   overlay.querySelector("h2").textContent = message;
-  overlay.querySelector("p").innerHTML = "按 <kbd>Enter</kbd> 进入下一回合";
+  overlay.querySelector("p").innerHTML = "按 <kbd>Enter</kbd> 或点下面按钮进入下一回合";
+  overlay.querySelector(".start-button").textContent = "下一回合";
   overlay.classList.remove("hidden");
 }
 
@@ -345,11 +352,33 @@ window.addEventListener("keydown", (event) => {
   const key = event.key.toLowerCase();
   if (["a", "d", "w", "s", "j", "k", "enter"].includes(key)) event.preventDefault();
   keys.add(key);
-  if (key === "enter" && !game.running) resetRound(game.round + (game.winner ? 1 : 0));
+  if (key === "enter") startOrRestart();
 });
 
 window.addEventListener("keyup", (event) => {
   keys.delete(event.key.toLowerCase());
+});
+
+document.addEventListener("click", (event) => {
+  if (event.target.closest("[data-start]")) startOrRestart();
+});
+
+touchButtons.forEach((button) => {
+  const key = button.dataset.key;
+  const release = () => {
+    keys.delete(key);
+    button.classList.remove("pressed");
+  };
+
+  button.addEventListener("pointerdown", (event) => {
+    event.preventDefault();
+    button.setPointerCapture?.(event.pointerId);
+    keys.add(key);
+    button.classList.add("pressed");
+  });
+  button.addEventListener("pointerup", release);
+  button.addEventListener("pointercancel", release);
+  button.addEventListener("pointerleave", release);
 });
 
 resetRound(1);
